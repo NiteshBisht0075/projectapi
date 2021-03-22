@@ -3,7 +3,6 @@ const Project = require('../model/Project');
 module.exports = {
     async addProject(ctx){
         try{
-            // console.log("hello")
             var body = ctx.request.body;
             var project = new Project();
             project.name = body.name;
@@ -25,17 +24,7 @@ module.exports = {
             ctx.throw(error);
         }
     },
-    
-    // async getProject(ctx) {
-    //     try {
-    //         var projectsData = await Project.find()
-    //         // console.log(projectsData)
-    //         ctx.body = { projectsData }
-    //     }
-    //     catch (error) {
-    //         ctx.throw(error)
-    //     }
-    // },
+
 // update
     async test(ctx){
         try{
@@ -46,24 +35,22 @@ module.exports = {
         }catch(error){
             ctx.throw(error);
         }
+    },
+
+   async getProject(ctx) {
+        console.log("hello")
+        try {
+            const _id = ctx.request.project.params.id;
+            const projectData = await Project.findById(_id);
+            if (!projectData) {
+                return ctx.body;
+            }
+            else {
+                ctx.body =  projectData;
+            }
+        }
+        catch (error) {
+            ctx.throw(error);
+        }
     }
-
-//    async getProject(ctx) {
-
-//         try {
-//             const _id = ctx.request.params.id;
-//             const projectData = await Project.findById(_id);
-//             if (!projectData) {
-//                 return ctx.body;
-//             }
-//             else {
-//                 ctx.body = { projectData };
-//             }
-//         }
-//         catch (error) {
-//             ctx.throw(error);
-//         }
-//     }
-
-
 }
